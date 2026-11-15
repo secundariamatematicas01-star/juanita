@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mensaje desde el Cielo</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-text-size-adjust: 100%;
+        }
+        .font-cinzel { font-family: 'Cinzel Decorative', serif; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-sans-modern { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-cursive { font-family: 'Great Vibes', cursive; }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(253, 224, 71, 0.25);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+        }
+        .wax-seal-modern {
+            background: radial-gradient(circle at 35% 35%, #fef08a, #d97706 65%, #78350f);
+            box-shadow: 0 10px 30px rgba(217, 119, 6, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.9), inset 0 -3px 6px rgba(0, 0, 0, 0.4);
+            border: 1.5px solid rgba(254, 240, 138, 0.7);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+            will-change: transform, opacity;
+        }
+        .wax-seal-modern:hover, .wax-seal-modern:active {
+            transform: scale(1.08) rotate(4deg);
+            box-shadow: 0 15px 35px rgba(253, 224, 71, 0.7), inset 0 2px 4px rgba(255, 255, 255, 1), inset 0 -3px 6px rgba(0, 0, 0, 0.4);
+        }
+        .ribbon-v {
+            background: linear-gradient(90deg, rgba(180, 83, 9, 0.8) 0%, rgba(245, 158, 11, 0.9) 40%, rgba(254, 240, 138, 1) 50%, rgba(245, 158, 11, 0.9) 60%, rgba(180, 83, 9, 0.8) 100%);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.7s ease;
+        }
+        .ribbon-h {
+            background: linear-gradient(180deg, rgba(180, 83, 9, 0.8) 0%, rgba(245, 158, 11, 0.9) 40%, rgba(254, 240, 138, 1) 50%, rgba(245, 158, 11, 0.9) 60%, rgba(180, 83, 9, 0.8) 100%);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.7s ease;
+        }
+        @keyframes subtlePulse {
+            0%, 100% { transform: scale(1); opacity: 0.9; filter: drop-shadow(0 0 15px rgba(253, 224, 71, 0.6)); }
+            50% { transform: scale(1.06); opacity: 1; filter: drop-shadow(0 0 25px rgba(254, 240, 138, 0.9)); }
+        }
+        .candle-flame { animation: subtlePulse 3s infinite ease-in-out; }
+        .envelope-container { perspective: 1200px; -webkit-perspective: 1200px; }
+        .flap-top, .flap-bottom, .flap-left, .flap-right { will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .flap-top { transform-origin: top center; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); z-index: 30; }
+        .flap-top.open { transform: rotateX(180deg); z-index: 5; }
+        .flap-bottom { transform-origin: bottom center; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); z-index: 25; }
+        .flap-bottom.open { transform: rotateX(-180deg); z-index: 5; }
+        .flap-left { transform-origin: left center; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); z-index: 20; }
+        .flap-left.open { transform: rotateY(-180deg); z-index: 5; }
+        .flap-right { transform-origin: right center; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); z-index: 20; }
+        .flap-right.open { transform: rotateY(180deg); z-index: 5; }
+        .letter-paper { transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease; will-change: transform, opacity; }
+        .clip-top { clip-path: polygon(0 0, 100% 0, 50% 100%); -webkit-clip-path: polygon(0 0, 100% 0, 50% 100%); }
+        .clip-bottom { clip-path: polygon(0 100%, 50% 0, 100% 100%); -webkit-clip-path: polygon(0 100%, 50% 0, 100% 100%); }
+        .clip-left { clip-path: polygon(0 0, 100% 50%, 0 100%); -webkit-clip-path: polygon(0 0, 100% 50%, 0 100%); }
+        .clip-right { clip-path: polygon(100% 0, 0 50%, 100% 100%); -webkit-clip-path: polygon(100% 0, 0 50%, 100% 100%); }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(217, 119, 6, 0.08); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(217, 119, 6, 0.4); border-radius: 10px; }
+        @keyframes floatDove {
+            0% { transform: translate(-60px, 100vh) scale(0.8) rotate(-10deg); opacity: 0; }
+            15% { opacity: 0.85; }
+            85% { opacity: 0.85; }
+            100% { transform: translate(calc(100vw + 60px), -10vh) scale(1.2) rotate(10deg); opacity: 0; }
+        }
+        .floating-dove {
+            position: absolute;
+            animation: floatDove linear infinite;
+            pointer-events: none;
+            color: rgba(254, 240, 138, 0.85);
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
+            will-change: transform, opacity;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-950 via-indigo-950 to-sky-950 min-h-full text-amber-100 flex flex-col justify-between overflow-x-hidden font-sans-modern select-none relative">
+    <div id="dovesContainer" class="fixed inset-0 pointer-events-none overflow-hidden z-10"></div>
+    <canvas id="sparksCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-80"></canvas>
+    <div id="bgFocusOverlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md pointer-events-none opacity-0 transition-opacity duration-1000 z-10"></div>
+
+    <header class="relative z-20 flex justify-between items-center px-4 sm:px-6 py-4 max-w-6xl mx-auto w-full">
+        <div class="flex items-center space-x-2.5 sm:space-x-3">
+            <div class="w-8 h-8 rounded-full bg-amber-400/15 border border-amber-300/40 flex items-center justify-center shadow-lg">
+                <i class="fa-solid fa-cross text-amber-300 text-sm"></i>
+            </div>
+            <h1 class="font-cinzel text-sm sm:text-base md:text-lg tracking-wider text-amber-200 font-bold">Mensaje desde el Cielo</h1>
+        </div>
+        <button id="audioBtn" aria-label="Control de Audio" class="flex items-center gap-2 px-3.5 py-2 bg-slate-900/80 hover:bg-slate-800 border border-amber-300/40 rounded-full text-xs text-amber-100 backdrop-blur-md transition shadow-lg active:scale-95">
+            <i id="audioIcon" class="fa-solid fa-volume-xmark text-amber-300"></i>
+            <span id="audioText" class="font-sans-modern font-medium text-[11px] sm:text-xs">Reproducir Canción</span>
+        </button>
+    </header>
+
+    <div class="fixed left-3 sm:left-8 bottom-6 sm:bottom-12 z-20 flex flex-col items-center pointer-events-none opacity-85">
+        <div class="w-3.5 h-5 bg-gradient-to-t from-amber-200 via-amber-100 to-white rounded-full candle-flame mb-0.5"></div>
+        <div class="w-1 h-2 bg-amber-900/70 rounded-t-sm"></div>
+        <div class="w-5 sm:w-7 h-20 sm:h-36 bg-gradient-to-r from-slate-100 via-white to-slate-200 rounded-t-md shadow-2xl relative border-l border-white/60"></div>
+    </div>
+
+    <div class="fixed right-3 sm:right-8 bottom-6 sm:bottom-12 z-20 flex flex-col items-center pointer-events-none opacity-85">
+        <div class="w-3.5 h-5 bg-gradient-to-t from-amber-200 via-amber-100 to-white rounded-full candle-flame mb-0.5" style="animation-delay: -1.5s;"></div>
+        <div class="w-1 h-2 bg-amber-900/70 rounded-t-sm"></div>
+        <div class="w-5 sm:w-7 h-24 sm:h-44 bg-gradient-to-r from-slate-100 via-white to-slate-200 rounded-t-md shadow-2xl relative border-r border-white/60"></div>
+    </div>
+
+    <main class="relative z-20 flex-1 flex items-center justify-center p-3 sm:p-6 my-auto">
+        <div class="relative w-full max-w-xl flex flex-col items-center justify-center">
+            <p id="instructionText" class="font-sans-modern text-xs sm:text-sm text-amber-200/90 mb-4 sm:mb-6 text-center tracking-widest uppercase transition-opacity duration-500 flex items-center gap-2">
+                <i class="fa-solid fa-sparkles text-amber-300"></i> Presiona el sello para abrir el mensaje
+            </p>
+
+            <div id="envelope" class="envelope-container relative w-full aspect-[1.4/1] sm:aspect-[1.5/1] glass-panel rounded-2xl flex items-center justify-center transition-all duration-700">
+                <div class="absolute inset-0 bg-slate-900/95 rounded-2xl overflow-hidden pointer-events-none">
+                    <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#fef08a_1.5px,transparent_1.5px)] [background-size:24px_24px]"></div>
+                </div>
+
+                <div id="ribbonV" class="ribbon-v absolute inset-y-0 w-6 sm:w-8 left-1/2 transform -translate-x-1/2 z-35 pointer-events-none"></div>
+                <div id="ribbonH" class="ribbon-h absolute inset-x-0 h-6 sm:h-8 top-1/2 transform -translate-y-1/2 z-35 pointer-events-none"></div>
+
+                <div id="flapTop" class="flap-top absolute top-0 inset-x-0 h-1/2 bg-slate-900/95 rounded-t-2xl border-b border-amber-300/30">
+                    <div class="w-full h-full bg-gradient-to-b from-slate-900 to-slate-950 clip-top"></div>
+                </div>
+                <div id="flapBottom" class="flap-bottom absolute bottom-0 inset-x-0 h-1/2 bg-slate-900/95 rounded-b-2xl border-t border-amber-300/30">
+                    <div class="w-full h-full bg-gradient-to-t from-slate-900 to-slate-950 clip-bottom"></div>
+                </div>
+                <div id="flapLeft" class="flap-left absolute left-0 inset-y-0 w-1/2 bg-slate-900/95 rounded-l-2xl border-r border-amber-300/30">
+                    <div class="w-full h-full bg-gradient-to-r from-slate-900 to-slate-950 clip-left"></div>
+                </div>
+                <div id="flapRight" class="flap-right absolute right-0 inset-y-0 w-1/2 bg-slate-900/95 rounded-r-2xl border-l border-amber-300/30">
+                    <div class="w-full h-full bg-gradient-to-l from-slate-900 to-slate-950 clip-right"></div>
+                </div>
+
+                <button id="waxSealBtn" aria-label="Abrir sobre" class="wax-seal-modern absolute z-50 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex flex-col items-center justify-center cursor-pointer transform active:scale-90">
+                    <div id="sealIconGroup" class="text-amber-950 text-xl sm:text-2xl flex flex-col items-center pointer-events-none">
+                        <i class="fa-solid fa-cross"></i>
+                        <span class="font-sans-modern text-[8px] sm:text-[9px] font-bold tracking-widest text-amber-950 mt-0.5 uppercase">Abrir</span>
+                    </div>
+                </button>
+
+                <div id="letterPaper" class="letter-paper absolute inset-3 sm:inset-5 glass-card rounded-xl p-5 sm:p-8 text-slate-800 z-10 opacity-0 transform scale-95 pointer-events-none flex flex-col justify-between border border-amber-200/80 custom-scrollbar overflow-y-auto max-h-[85vh]">
+                    <div class="text-center mb-3 pb-3 border-b border-amber-900/15">
+                        <h2 id="letterTitle" class="font-playfair text-2xl sm:text-3xl text-slate-900 font-bold tracking-wide">
+                            Enviado desde el Cielo
+                        </h2>
+                    </div>
+
+                    <div class="flex flex-col items-center my-3 relative">
+                        <div class="p-2.5 bg-white rounded-xl shadow-2xl border border-amber-200/70 relative group w-52 h-52 sm:w-64 sm:h-64 overflow-hidden flex items-center justify-center">
+                            <img id="carouselImage" src="" alt="Recuerdo Celestial" class="w-full h-full object-contain rounded-lg transition-all duration-500 bg-slate-50/50">
+                            <button id="prevPhotoBtn" aria-label="Foto anterior" class="absolute left-2 top-1/2 -translate-y-1/2 bg-slate-900/80 text-amber-200 rounded-full w-8 h-8 flex items-center justify-center text-xs opacity-90 sm:opacity-0 group-hover:opacity-100 transition shadow-md active:scale-90">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </button>
+                            <button id="nextPhotoBtn" aria-label="Siguiente foto" class="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-900/80 text-amber-200 rounded-full w-8 h-8 flex items-center justify-center text-xs opacity-90 sm:opacity-0 group-hover:opacity-100 transition shadow-md active:scale-90">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div id="carouselDots" class="flex items-center gap-1.5 mt-3"></div>
+                    </div>
+
+                    <div class="my-3 text-center px-1 relative flex flex-col items-center">
+                        <button id="speechBtn" aria-label="Escuchar mensaje de voz" title="Escuchar carta" class="mb-4 w-11 h-11 bg-amber-900/15 hover:bg-amber-900/25 text-amber-950 border border-amber-800/30 rounded-full flex items-center justify-center transition shadow-sm active:scale-95 cursor-pointer">
+                            <i id="speechIcon" class="fa-solid fa-volume-high text-amber-800 text-lg"></i>
+                        </button>
+
+                        <div id="letterBody" class="font-playfair text-xs sm:text-base leading-relaxed text-slate-700 italic space-y-4 text-left sm:text-center">
+                            <p>Familia, sé que quizá esta no sea mi voz, pero hoy es el medio que tengo para hacerles llegar estas palabras y permitirles escuchar un poquito de lo que quiero decirles. Sé que ustedes recuerdan perfectamente mi voz, mi manera de hablar y cada una de mis palabras. Por eso, quiero pedirles que, mientras escuchan esta carta, cierren un poquito sus ojos y recuerden cómo era escucharme. Imaginen que soy yo quien está aquí, hablándoles desde el corazón, como tantas veces lo hice.</p>
+                            <p>Hola, hija. Espero que te encuentres muy bien en estos momentos y, sobre todo, quiero saber cómo te ha ido a lo largo de estos años en los que no hemos estado juntas como siempre lo habíamos hecho. Quiero saber qué ha sido de ti, qué ha cambiado y qué hay de nuevo en la familia.</p>
+                            <p>Dios me dijo que tenemos un integrante nuevo en la familia y que Él lo estuvo sosteniendo en sus brazos por algunas complicaciones por las que pasó, pero que nunca lo soltó. Cuéntame, ¿cómo es él?, ¿a quién se parece? ¿Es muy alegre o muy inquieto?</p>
+                            <p>Bueno, sé que también han llegado otras bendiciones a la familia y espero que todas estas bendiciones sean de mucho apoyo, ya que yo, desde el cielo, los observo y veo un gran cambio en todos.</p>
+                            <p>Hija, familia, sé que este es un momento en el que paso a dejarles esta carta, pero quiero que sepan que me encuentro muy bien junto a Dios. Quiero recordarles que siempre estoy junto a ustedes y sé que me sienten. A veces, me encuentro en lo más sencillo de su día a día. ¿Y cómo lo saben? Pues siempre los acaricio en la mejilla con una pequeña brisa del viento, o incluso cuando ando volando cerca de ustedes de una manera poco común.</p>
+                            <p>Siempre voy a estar con ustedes y todas sus palabras siempre me llegan en oración a Dios. No se aparten de Él; sean unidos todos, como siempre lo fuimos. Recuerden aquellas Navidades llenas de risas, las tamalizas que hacíamos y toda esa convivencia en familia. Ya no se juzguen entre ustedes, disfruten la vida y gócenla para Dios.</p>
+                            <p>Aquí siempre los estaré esperando a todos con los brazos abiertos, pero todo a su tiempo. No adelanten su tiempo; cada uno tiene un propósito por cumplir.</p>
+                            <p>Zayury, recuerda lo fuerte que eres y las veces que te regañé y, aun así, seguiste siendo muy fuerte. No te pongas triste; siempre estoy contigo en todo momento.</p>
+                            <p>Katya, ahora más que nunca tienes más razones por las cuales estar feliz. Tienes dos grandes bendiciones que necesitan de esa mano y ese carácter de enseñanza.</p>
+                            <p>Luis, no te excedas tanto en la diversión. Recuerda que hay obligaciones por cumplir.</p>
+                            <p>Issa, mi niña, gracias por estar conmigo hasta en los últimos momentos. No te frustres ni tampoco te rindas. Eres capaz de eso y de muchas cosas más, como me lo demostraste.</p>
+                            <p>Mi hija Elvia, sé que siempre te dije que el trabajo es lo primero, pero ahora te veo y sé que necesitas un descanso. Usa tu tiempo de ahora para disfrutar de la bendición tan grande que Dios dejó para ustedes. No lo pierdas y disfruta cada momento junto a él.</p>
+                            <p>Hannita y Arlen, les toca la gran responsabilidad de ser un ejemplo para sus bendiciones. Guíenlas por el camino e instrúyanlas siempre en los caminos de Dios.</p>
+                            <p>Mi negrito, te toca la parte más complicada de tu vida, porque sé cómo te has sentido durante estos últimos años. Sé que yo era tu fortaleza, esa persona con quien llegabas a platicar y con quien disfrutabas de varias tardes a mi lado. Pero ahora tienes una responsabilidad que Dios dejó en tus manos. Sé que siempre miras al cielo buscando una señal que te dé una respuesta, pero tú sabes más que nadie dónde me encuentro.</p>
+                            <p>Familia, quiero bendecir a todos los nuevos integrantes, parejas, esposos y bendiciones. Ámense los unos a los otros y vivan la vida por el camino de Dios.</p>
+                            <p>Familia, sé que es poco el tiempo que tengo, pero ya me tengo que despedir. No olviden lo que les mencioné. Los amo a todos y a todas. No estén tristes en este día; hay que divertirnos como en aquellas Navidades y reuniones que teníamos. Celebremos las bendiciones que Dios nos ha dado a toda esta familia.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 text-right border-t border-amber-900/15 pt-3">
+                        <p id="letterSignature" class="font-cursive text-xl sm:text-2xl md:text-3xl text-amber-900">
+                            Me despido de ustedes con un fuerte beso en la brisa de sus mejillas y un gran abrazo con el calor del sol que cubre su cuerpo. Nos vemos luego y no olviden que los amo y los cuido desde el cielo, con amor Quetita!
+                        </p>
+                    </div>
+
+                    <div class="mt-5 flex justify-center pt-3 border-t border-amber-900/15">
+                        <button id="closeLetterBtn" class="px-5 py-2.5 bg-amber-500/20 text-amber-950 border border-amber-500/40 rounded-full text-xs font-sans-modern font-semibold hover:bg-amber-500/30 transition shadow-sm flex items-center gap-2 active:scale-95">
+                            <i class="fa-solid fa-envelope text-amber-800"></i> Cerrar y Guardar Sobre
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="relative z-20 text-center py-3 text-[11px] sm:text-xs font-sans-modern text-amber-200/60 tracking-wider flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-dove text-amber-300/80"></i> Mensaje desde el Cielo
+    </footer>
+
+    <audio id="bgMusic" src="cancion.mp3" preload="metadata" loop playsinline webkit-playsinline type="audio/mpeg"></audio>
+
+    <script>
+        const dovesContainer = document.getElementById('dovesContainer');
+        const doveCount = window.innerWidth < 640 ? 6 : 10;
+        for (let i = 0; i < doveCount; i++) {
+            const dove = document.createElement('i');
+            dove.className = 'fa-solid fa-dove floating-dove';
+            const randomTop = Math.random() * 85 + 5;
+            const randomDuration = Math.random() * 10 + 12;
+            const randomDelay = Math.random() * 12;
+            const randomSize = Math.random() * 14 + 18;
+            dove.style.top = randomTop + 'vh';
+            dove.style.animationDuration = randomDuration + 's';
+            dove.style.animationDelay = randomDelay + 's';
+            dove.style.fontSize = randomSize + 'px';
+            dovesContainer.appendChild(dove);
+        }
+
+        const canvas = document.getElementById('sparksCanvas');
+        const ctx = canvas.getContext('2d');
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas, { passive: true });
+
+        const paperParticles = [];
+        const paperColors = ['rgba(255, 255, 255, 0.95)', 'rgba(254, 240, 138, 0.75)', 'rgba(241, 245, 249, 0.85)'];
+        class PaperParticle {
+            constructor() { this.reset(true); }
+            reset(initial = false) {
+                this.x = Math.random() * canvas.width;
+                this.y = initial ? Math.random() * canvas.height : -20;
+                this.w = Math.random() * 6 + 4;
+                this.h = Math.random() * 8 + 6;
+                this.speedY = Math.random() * 0.8 + 0.4;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.angle = Math.random() * Math.PI * 2;
+                this.angularSpeed = Math.random() * 0.03 - 0.015;
+                this.color = paperColors[Math.floor(Math.random() * paperColors.length)];
+                this.opacity = Math.random() * 0.7 + 0.3;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += Math.sin(this.angle) * 0.5 + this.speedX;
+                this.angle += this.angularSpeed;
+                if (this.y > canvas.height + 20 || this.x < -20 || this.x > canvas.width + 20) {
+                    this.reset(false);
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
+                ctx.restore();
+            }
+        }
+        const particleCount = window.innerWidth < 640 ? 30 : 55;
+        for (let i = 0; i < particleCount; i++) { paperParticles.push(new PaperParticle()); }
+        function animatePaperRain() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            paperParticles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animatePaperRain);
+        }
+        animatePaperRain();
+
+        const bgMusic = document.getElementById('bgMusic');
+        const audioBtn = document.getElementById('audioBtn');
+        const audioIcon = document.getElementById('audioIcon');
+        const audioText = document.getElementById('audioText');
+        audioBtn.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play().then(() => {
+                    audioIcon.className = 'fa-solid fa-volume-high text-amber-300 animate-pulse';
+                    audioText.textContent = 'Pausar Canción';
+                }).catch(err => { console.log('Audio limitation:', err); });
+            } else {
+                bgMusic.pause();
+                audioIcon.className = 'fa-solid fa-volume-xmark text-amber-300';
+                audioText.textContent = 'Reproducir Canción';
+            }
+        });
+
+        const speechBtn = document.getElementById('speechBtn');
+        const speechIcon = document.getElementById('speechIcon');
+        const letterBody = document.getElementById('letterBody');
+        const letterSignature = document.getElementById('letterSignature');
+        let synth = window.speechSynthesis;
+
+        function getBestFemaleSpanishVoice() {
+            const voices = synth.getVoices() || [];
+            const spanishVoices = voices.filter(v => v.lang && (v.lang.toLowerCase().startsWith('es') || v.lang.toLowerCase().startsWith('ES')));
+            const femaleKeywords = ['female', 'mujer', 'zira', 'helena', 'laura', 'victoria', 'paulina', 'mónica', 'sabrina', 'lucía', 'carmen', 'soledad', 'siri', 'neural', 'natural', 'google', 'es-us', 'es-mx', 'es-es', 'dalia', 'marta', 'conchita', 'rosario', 'esperanza'];
+            const maleKeywords = ['pablo', 'jorge', 'carlos', 'diego', 'alejandro', 'raul', 'tomas', 'male', 'hombre', 'alberto', 'enrique'];
+            
+            let bestVoice = spanishVoices.find(v => {
+                const name = v.name.toLowerCase();
+                return femaleKeywords.some(f => name.includes(f)) && !maleKeywords.some(m => name.includes(m));
+            });
+            if (!bestVoice) {
+                bestVoice = spanishVoices.find(v => !maleKeywords.some(m => v.name.toLowerCase().includes(m)));
+            }
+            return bestVoice || spanishVoices[0] || voices[0];
+        }
+
+        let isSpeakingQueue = false;
+
+        function playGrandmaVoice() {
+            if (!synth) {
+                alert('Tu navegador no soporta lectura de voz.');
+                return;
+            }
+
+            if (synth.speaking || isSpeakingQueue) {
+                synth.cancel();
+                isSpeakingQueue = false;
+                speechIcon.className = 'fa-solid fa-volume-high text-amber-800 text-lg';
+                if (!bgMusic.paused) {
+                    bgMusic.volume = originalMusicVol;
+                }
+                return;
+            }
+
+            synth.getVoices();
+
+            setTimeout(() => {
+                const paragraphs = letterBody.querySelectorAll('p');
+                let textChunks = [];
+                paragraphs.forEach(p => {
+                    let text = p.textContent.trim();
+                    if (text) textChunks.push(text);
+                });
+                
+                const signatureText = letterSignature.textContent.trim();
+                if (signatureText) {
+                    textChunks.push(signatureText);
+                }
+
+                if (textChunks.length === 0) return;
+
+                isSpeakingQueue = true;
+                speechIcon.className = 'fa-solid fa-pause text-amber-900 text-lg animate-pulse';
+
+                let originalMusicVol = bgMusic.volume;
+                if (!bgMusic.paused) {
+                    bgMusic.volume = 0.15;
+                }
+
+                let currentIndex = 0;
+
+                function speakNextChunk() {
+                    if (!isSpeakingQueue || currentIndex >= textChunks.length) {
+                        isSpeakingQueue = false;
+                        speechIcon.className = 'fa-solid fa-volume-high text-amber-800 text-lg';
+                        if (!bgMusic.paused) {
+                            bgMusic.volume = originalMusicVol;
+                        }
+                        return;
+                    }
+
+                    const utterance = new SpeechSynthesisUtterance(textChunks[currentIndex]);
+                    utterance.lang = 'es-MX';
+                    utterance.pitch = 0.95;
+                    utterance.rate = 0.72;
+                    utterance.volume = 1.0;
+
+                    const selectedVoice = getBestFemaleSpanishVoice();
+                    if (selectedVoice) {
+                        utterance.voice = selectedVoice;
+                    }
+
+                    utterance.onend = () => {
+                        currentIndex++;
+                        speakNextChunk();
+                    };
+
+                    utterance.onerror = () => {
+                        currentIndex++;
+                        speakNextChunk();
+                    };
+
+                    synth.speak(utterance);
+                }
+
+                speakNextChunk();
+            }, 50);
+        }
+
+        if (synth && synth.onvoiceschanged !== undefined) {
+            synth.onvoiceschanged = getBestFemaleSpanishVoice;
+        }
+
+        speechBtn.addEventListener('click', playGrandmaVoice);
+
+        let photoList = ['foto1.jpeg', 'foto2.jpeg', 'foto3.jpeg'];
+        let currentPhotoIndex = 0;
+        let autoScrollTimer = null;
+        const AUTO_SWAP_INTERVAL = 3500;
+        const carouselImage = document.getElementById('carouselImage');
+        const carouselDots = document.getElementById('carouselDots');
+        const prevPhotoBtn = document.getElementById('prevPhotoBtn');
+        const nextPhotoBtn = document.getElementById('nextPhotoBtn');
+
+        function updateCarousel() {
+            if (photoList.length === 0) return;
+            carouselImage.src = photoList[currentPhotoIndex];
+            if (photoList.length <= 1) {
+                prevPhotoBtn.style.display = 'none';
+                nextPhotoBtn.style.display = 'none';
+                carouselDots.style.display = 'none';
+            } else {
+                prevPhotoBtn.style.display = 'flex';
+                nextPhotoBtn.style.display = 'flex';
+                carouselDots.style.display = 'flex';
+            }
+            carouselDots.innerHTML = '';
+            photoList.forEach((_, idx) => {
+                const dot = document.createElement('button');
+                dot.setAttribute('aria-label', 'Ir a foto ' + (idx + 1));
+                dot.className = 'h-1.5 rounded-full transition-all duration-300 ' + (idx === currentPhotoIndex ? 'bg-amber-700 w-4' : 'bg-amber-900/30 w-1.5');
+                dot.addEventListener('click', () => { currentPhotoIndex = idx; updateCarousel(); resetAutoScroll(); });
+                carouselDots.appendChild(dot);
+            });
+        }
+        function nextPhoto() { if (photoList.length > 1) { currentPhotoIndex = (currentPhotoIndex + 1) % photoList.length; updateCarousel(); } }
+        function prevPhoto() { if (photoList.length > 1) { currentPhotoIndex = (currentPhotoIndex - 1 + photoList.length) % photoList.length; updateCarousel(); } }
+        function startAutoScroll() { if (!autoScrollTimer && photoList.length > 1) autoScrollTimer = setInterval(nextPhoto, AUTO_SWAP_INTERVAL); }
+        function stopAutoScroll() { if (autoScrollTimer) { clearInterval(autoScrollTimer); autoScrollTimer = null; } }
+        function resetAutoScroll() { stopAutoScroll(); startAutoScroll(); }
+        prevPhotoBtn.addEventListener('click', () => { prevPhoto(); resetAutoScroll(); });
+        nextPhotoBtn.addEventListener('click', () => { nextPhoto(); resetAutoScroll(); });
+        updateCarousel();
+        startAutoScroll();
+
+        const waxSealBtn = document.getElementById('waxSealBtn');
+        const ribbonV = document.getElementById('ribbonV');
+        const ribbonH = document.getElementById('ribbonH');
+        const flapTop = document.getElementById('flapTop');
+        const flapBottom = document.getElementById('flapBottom');
+        const flapLeft = document.getElementById('flapLeft');
+        const flapRight = document.getElementById('flapRight');
+        const letterPaper = document.getElementById('letterPaper');
+        const instructionText = document.getElementById('instructionText');
+        const closeLetterBtn = document.getElementById('closeLetterBtn');
+        const bgFocusOverlay = document.getElementById('bgFocusOverlay');
+        let isEnvelopeOpen = false;
+
+        waxSealBtn.addEventListener('click', () => {
+            if (isEnvelopeOpen) return;
+            isEnvelopeOpen = true;
+            waxSealBtn.style.transform = 'scale(1.4) rotate(15deg)';
+            waxSealBtn.style.opacity = '0';
+            waxSealBtn.style.pointerEvents = 'none';
+            ribbonV.style.opacity = '0';
+            ribbonH.style.opacity = '0';
+            instructionText.style.opacity = '0';
+            setTimeout(() => { flapTop.classList.add('open'); }, 200);
+            setTimeout(() => { flapLeft.classList.add('open'); flapRight.classList.add('open'); }, 450);
+            setTimeout(() => { flapBottom.classList.add('open'); }, 650);
+            setTimeout(() => {
+                bgFocusOverlay.classList.remove('opacity-0', 'pointer-events-none');
+                bgFocusOverlay.classList.add('opacity-100');
+                letterPaper.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+                letterPaper.classList.add('opacity-100', 'pointer-events-auto', 'scale-100', 'z-10');
+            }, 900);
+        });
+
+        closeLetterBtn.addEventListener('click', () => {
+            if (!isEnvelopeOpen) return;
+            isEnvelopeOpen = false;
+            if (synth && (synth.speaking || isSpeakingQueue)) { 
+                synth.cancel(); 
+                isSpeakingQueue = false;
+                speechIcon.className = 'fa-solid fa-volume-high text-amber-800 text-lg'; 
+            }
+            bgFocusOverlay.classList.remove('opacity-100');
+            bgFocusOverlay.classList.add('opacity-0', 'pointer-events-none');
+            letterPaper.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100', 'z-10');
+            letterPaper.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+            setTimeout(() => { flapBottom.classList.remove('open'); }, 250);
+            setTimeout(() => { flapLeft.classList.remove('open'); flapRight.classList.remove('open'); }, 450);
+            setTimeout(() => { flapTop.classList.remove('open'); }, 650);
+            setTimeout(() => {
+                waxSealBtn.style.transform = 'scale(1) rotate(0deg)';
+                waxSealBtn.style.opacity = '1';
+                waxSealBtn.style.pointerEvents = 'auto';
+                ribbonV.style.opacity = '1';
+                ribbonH.style.opacity = '1';
+                instructionText.style.opacity = '1';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
